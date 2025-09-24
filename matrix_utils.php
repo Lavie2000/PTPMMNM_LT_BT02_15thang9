@@ -463,21 +463,21 @@ function generateSinglyEvenMagicSquare(int $n): array {
     // Tạo ma phương bậc lẻ p×p
     $oddMagic = generateOddMagicSquare($p);
     
-    // Tạo 4 quadrant
+    // Tạo 4 quadrant với pattern đúng
     for ($i = 0; $i < $p; $i++) {
         for ($j = 0; $j < $p; $j++) {
             $val = $oddMagic[$i][$j];
-            $magic[$i][$j] = $val;                    // A
-            $magic[$i][$j + $p] = $val + 2 * $p * $p; // B
-            $magic[$i + $p][$j] = $val + 3 * $p * $p; // C
-            $magic[$i + $p][$j + $p] = $val + $p * $p; // D
+            $magic[$i][$j] = $val;                      // A (top-left)
+            $magic[$i][$j + $p] = $val + 2 * $p * $p;   // B (top-right) 
+            $magic[$i + $p][$j] = $val + 3 * $p * $p;   // C (bottom-left)
+            $magic[$i + $p][$j + $p] = $val + $p * $p;  // D (bottom-right)
         }
     }
     
-    // Hoán đổi các cột theo quy tắc LUX
+    // Hoán đổi theo quy tắc LUX
     $k = ($p - 1) / 2;
     
-    // Hoán đổi k cột đầu tiên giữa A và C
+    // L: Hoán đổi k cột đầu tiên giữa quadrant A và C
     for ($j = 0; $j < $k; $j++) {
         for ($i = 0; $i < $p; $i++) {
             $temp = $magic[$i][$j];
@@ -486,8 +486,8 @@ function generateSinglyEvenMagicSquare(int $n): array {
         }
     }
     
-    // Hoán đổi k-1 cột cuối cùng giữa B và D
-    for ($j = $p + 1; $j < $n; $j++) {
+    // U: Hoán đổi k-1 cột cuối cùng giữa quadrant B và D  
+    for ($j = $n - $k + 1; $j < $n; $j++) {
         for ($i = 0; $i < $p; $i++) {
             $temp = $magic[$i][$j];
             $magic[$i][$j] = $magic[$i + $p][$j];
@@ -495,15 +495,20 @@ function generateSinglyEvenMagicSquare(int $n): array {
         }
     }
     
-    // Hoán đổi đặc biệt cho hàng giữa
+    // X: Hoán đổi đặc biệt cho hàng giữa trong cột đầu và cột k
     $middle = intval($p / 2);
+    
+    // Hoán đổi trong cột đầu tiên
     $temp = $magic[$middle][0];
     $magic[$middle][0] = $magic[$middle + $p][0];
     $magic[$middle + $p][0] = $temp;
     
-    $temp = $magic[$middle][$k];
-    $magic[$middle][$k] = $magic[$middle + $p][$k];
-    $magic[$middle + $p][$k] = $temp;
+    // Hoán đổi trong cột k
+    if ($k > 0) {
+        $temp = $magic[$middle][$k];
+        $magic[$middle][$k] = $magic[$middle + $p][$k];
+        $magic[$middle + $p][$k] = $temp;
+    }
     
     return $magic;
 }

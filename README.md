@@ -225,6 +225,21 @@ Dự án này được phát triển cho mục đích học tập và nghiên c�
 - ✅ **Bảo mật:** XSS protection, input validation, size limits
 - ✅ **Documentation:** README chi tiết với hướng dẫn và test cases
 - ✅ **Testing:** Đã test thành công tất cả functions
+- ✅ **Bug fixes:** Sửa lỗi thuật toán Singly Even và test cases
+
+## 🔧 Các sửa chữa đã thực hiện
+
+### Version 1.1 - Bug Fixes
+- **Fixed:** Thuật toán Singly Even Magic Square (bậc 6, 10, 14...)
+  - Sửa logic hoán đổi cột theo quy tắc LUX
+  - Cải thiện xử lý quadrant B và D
+  - Test thành công với bậc 6, 10, 12
+- **Fixed:** Test cases với expected values sai
+  - Định thức ma trận test từ 1 → -1 (đúng)
+  - Phép trừ ma trận A-B (1,1) từ 1 → 2 (đúng)
+- **Enhanced:** Function assertEqual hỗ trợ so sánh int vs float
+  - Sử dụng epsilon 1e-9 cho số thực
+  - Tương thích với PHP type juggling
 
 ## 🎉 Kết quả
 
